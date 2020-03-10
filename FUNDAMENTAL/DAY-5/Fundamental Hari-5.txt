@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+    // let ArrNamaBuah = ['Apel', 'Mangga', 'Jeruk']
+    // let ArrHargaBuah = [4000, 5000, 2500]
+    // let ArrStokBuah = [5, 5, 5]
+
+    let tokobuah = [
+        {Nama : 'Apel', Harga : 4000, Stok :5, input : 0 }, //apel
+        {Nama : 'Mangga', Harga : 5000, Stok : 5, input : 0},  //mangga
+        {Nama : 'Jeruk', Harga : 2500, Stok : 5, input : 0},
+        {Nama : 'Kelenkeng', Harga : 1500, Stok : 5, input : 0} //jeruk
+    ]
+    // let ArrInput = [0, 0, 0]
+    let tulisan = ''
+    var klik
+    var jumlahbuah
+    var inputjumlahbuah
+    let kondisimenu
+    let totalharga
+    let uanganda
+    let kondisiuang
+    let chart
+    
+    do {
+        tulisan = ''
+    for (let i = 0; i < tokobuah.length; i++) {
+
+        tulisan = tulisan + (i + 1) + '. Buah ' + tokobuah[i].Nama + ' Harga Buah ' + tokobuah[i].Harga + ' Stok Buah ' + tokobuah[i].Stok + '\n \n'
+
+    }
+       // tulisan += `${ArrNamaBuah.length+1}.Checkout`
+       tulisan += (tokobuah.length+1) + '. Checkout \n \n'
+       tulisan += (tokobuah.length+2) + '. Chart Belanja'
+        klik = prompt('    Masukkan angka untuk memilih buah: \n \n' + tulisan)
+
+        // klik = klik - 1
+        for (let j = 0; j < tokobuah.length; j++) {
+            
+            jumlahbuah = ('Buah ' + tokobuah[j].Nama + ', Harga Buah ' + tokobuah[j].Harga + ', Stok Buah ' + tokobuah[j].Stok + '\n \n' + 'Mau beli berapa banyak buah ? \n \n')
+            if (klik - 1 == j) {
+
+                inputjumlahbuah = prompt(jumlahbuah)
+                tokobuah[klik - 1].input += parseInt(inputjumlahbuah)
+                if (inputjumlahbuah > tokobuah[j].Stok ) {
+                    alert('Stok ' + tokobuah[j].Nama + ' habis')
+                    kondisimenu = false
+                }
+                else if (inputjumlahbuah <0) 
+                {
+                    alert('GA BENER NGISINYA. ISI ULANG DAH')   
+                    kondisimenu = true 
+                }
+                else {
+                    kondisimenu = true
+                    tokobuah[j].Stok -= parseInt(inputjumlahbuah)
+                }
+            }
+            else if (klik == tokobuah.length+1) {
+                totalharga = 0
+                for (let i = 0; i < tokobuah.length; i++) {
+                    totalharga = totalharga + (tokobuah[i].Harga * tokobuah[i].input)
+
+                }
+                for (let i = 0; i < tokobuah.length; i++) {
+                    tokobuah[i].input = 0
+                    
+                }
+                alert('Harga Total Keseluruhan adalah ' + totalharga)
+                do {
+                    uanganda = prompt('Total Uang Anda Berapa?')
+                    if (totalharga == uanganda) {
+                        // tokobuah.input.fill(0)
+                        alert('Uang anda pas')
+                        kondisiuang = false
+                        j = 100
+                    }
+                    else if (totalharga < uanganda) {
+                        // tokobuah.input.fill(0)
+                        kembalian = uanganda - totalharga
+                        alert('Kembalian Anda ' + kembalian)
+                        alert('mau beli lagi ga ? ')
+                        kondisiuang = false
+                        
+                    }
+                    else {
+                        kurang = totalharga - uanganda
+                        alert('Anda Kurang Uang Sebesar ' + kurang)
+                        kondisiuang = true
+                        
+                    }
+                    
+                } while (kondisiuang)
+                break
+            }
+            else if (klik == tokobuah.length+2) 
+            {
+                totalharga = 0
+                for (let i = 0; i < tokobuah.length; i++) {
+                totalharga = totalharga + (tokobuah[i].Harga * tokobuah[i].input)}
+
+                chart = ''
+                for (let i = 0; i < tokobuah.length; i++) {
+                    chart += ((i+1) +'. Anda Membeli Buah ' + tokobuah[i].Nama + ' Sebanyak ' + tokobuah[i].input + ' dengan total harga Rp.' + tokobuah[i].Harga*tokobuah[i].input + '\n\n')
+                    
+                }
+
+                alert('Total Harga yang dibayar adalah : ' + totalharga+ '\n\n' +
+                       'Dengan detail pembelian anda = \n\n' + chart)
+                       kondisimenu = true
+                break
+            }
+
+        }
+    }
+    while (kondisimenu)
+
+</script>
+
+</html>

@@ -1,0 +1,20 @@
+/*sandwich = $8
+salad = $7
+burger = $10
+french fries = $5
+
+buatlah 4 variabel untuk menampung harga dari setiap barang. 
+dan tampilkan total harga di log console jika seorang memsani
+
+4 sandwich
+5 salad
+2 burger
+7 kentang */
+
+let sandwich = 8
+let salad = 7
+let burger = 10
+let french_fries = 5
+
+total=sandwich*4 + salad*5 + burger*2 + french_fries*7
+console.log('Total harga 4 sandwich 5 salad 2 burger dan 7 kentang adalah ',total, '$')

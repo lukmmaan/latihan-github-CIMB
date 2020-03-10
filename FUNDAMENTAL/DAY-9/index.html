@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table,tr,td,th{
+            border: 1px solid pink;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <center>
+    <p id="1">Hello World</p>
+    <p><strong>Hello uMan</strong></p>
+    <br>
+    <br>
+    </center> -->
+
+    <H3 align="center">Menu</H3><hr>
+    <p></p>
+    <hr>
+
+    <table id="1">
+        <tr>
+            <td>Nama</td>
+            <td>Harga</td>
+            <td>Stok</td>
+            <td>Ukuran</td>
+        </tr>
+        <table></table>
+    </table>
+    <br>
+    <hr>
+    <br>
+    <img src="siberian1-32a60a7046f28b1adb4d3844c20b23bb_600x400.jpg" alt="" width="400" height="300">
+
+
+</body>
+<script>
+    class Product {
+        constructor(Nama, Harga, Stok, input) {
+            this.Nama = Nama
+            this.Harga = Harga
+            this.Stok = Stok
+            this.input = input
+        }
+    }
+    class Clothing extends Product {
+        constructor(Nama, Harga, Stok, input, Size) {
+            super(Nama, Harga, Stok, input)
+            this.Size = Size
+        }
+    }
+    let tokobaju = [
+        new Clothing('Sepatu', 200000, 5, 0, '42'),
+        new Clothing('Sendal', 50000, 5, 0, '42'),
+        new Clothing('Baju', 25000, 5, 0, 'L'),
+        new Clothing('Jaket', 150000, 5, 0, 'L')
+    ]
+
+    // alert(tokobaju[0].Nama)
+     let tulisan_clothing = ''
+        for (let i = 0; i < tokobaju.length; i++) {
+            
+            tulisan_clothing += '<tr>' +'<td>'+ tokobaju[i].Nama+'</td>' +'<td>' +tokobaju[i].Harga + '</td>'+ ' <td> ' + tokobaju[i].Stok + '</td>'+'<td>' + tokobaju[i].Size +'</td>' +'</tr>' 
+
+        }
+        // alert(tulisan_clothing)
+        document.getElementById("1").innerHTML += tulisan_clothing
+</script>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+
+    let ArrNamaBuah = ['Apel','Mangga','Jeruk']
+    let ArrHargaBuah = [4000,5000,2500]
+    let ArrStokBuah = [5,5,5]
+    let ArrInput 
+    let tulisan =''
+    let klik
+    let kondisimenu
+    //input banyak buah
+    let aa_apel
+    let aa_mangga
+    let aa_jeruk
+
+    for (let i = 0; i < ArrHargaBuah[i]; i++) 
+    {
+        
+        tulisan = tulisan + (i+1) + '. Buah ' + ArrNamaBuah[i]  + ' Harga Buah ' + ArrHargaBuah[i] + ' Stok Buah ' + ArrStokBuah[i] +'\n \n'    
+           
+    }
+    do
+    {
+    klik = prompt('    Masukkan angka untuk memilih buah: \n \n' +tulisan)   
+    
+    if (klik == 1) 
+    {
+        aa_apel = prompt('Banyaknya buah ' + ArrNamaBuah[0] + ' yang diinginkan : ')
+        
+        if (aa_apel > ArrStokBuah[0]) 
+        {
+            alert('buah apel habis')
+            
+        }
+        else
+        {
+            kondisimenu = true
+        }
+    }
+    else if (klik == 2) 
+    {
+        aa_mangga = prompt('Banyaknya buah ' + ArrNamaBuah[1] + ' yang diinginkan : ')
+    }
+    else if  (klik == 3) 
+    {
+        aa_mangga = prompt('Banyaknya buah ' + ArrNamaBuah[2] + ' yang diinginkan : ')
+    }
+    else
+    {
+        alert('Tidak Ada di Menu')
+    }}
+    while (kondisimenu)
+</script>
+
+</html>

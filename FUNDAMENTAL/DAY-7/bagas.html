@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    class Items {
+        constructor(Nama, Harga, Stock, Inputs) {
+            this.Nama = Nama
+            this.Harga = Harga
+            this.Stock = Stock
+            this.Inputs = Inputs
+        }
+    }
+
+    class Buah extends Items {
+        constructor(Nama, Harga, Stock, Inputs, Expired) {
+            super(Nama, Harga, Stock, Inputs)
+            this.Expired = Expired
+        }
+    }
+
+    class Baju extends Items {
+        constructor(Nama, Harga, Stock, Inputs, Size) {
+            super(Nama, Harga, Stock, Inputs)
+            this.Size = Size
+        }
+    }
+
+    class Hp extends Items {
+        constructor(Nama, Harga, Stock, Inputs, Garansi) {
+            super(Nama, Harga, Stock, Inputs)
+            this.Garansi = Garansi
+        }
+    }
+
+    let tokoBuah = [
+        new Buah('Jeruk', 13000, 10, 0, '5-Maret-2019'),
+        new Buah('Mangga', 7000, 15, 0, '6-Maret-2020'),
+        new Buah('Apel', 13000, 5, 0, '4-Maret-2020'),
+        new Buah('Semangka', 8000, 7, 0, '2-Maret-2020')
+    ]
+
+    let tokoBaju = [
+        new Baju('Baju Oblong', 200000, 5, 0, 'L'),
+        new Baju('Kemeja', 280000, 10, 0, 'L'),
+        new Baju('Jaket Kulit', 340000, 15, 0, 'M'),
+        new Baju('Boomber', 180000, 12, 0, 'XL')
+    ]
+
+    let tokoHp = [
+        new Hp('Samsung A20S', 2500000, 5, 0, 1),
+        new Hp('Iphone 10', 13000000, 10, 0, 1),
+        new Hp('Xiaomi', 1200000, 15, 0, 0),
+        new Hp('VIVO', 1450000, 12, 0, 2)
+    ]
+
+
+
+    let i, bayar, kembalian, PilihBuah, PilihJumlah, InputJumlah, totalHarga, conditionUang, isRepeat, userCart, cartCount
+    let desc, menu = ''
+    let newItemNama
+    let newItemHarga
+    let newItemStock
+
+
+    arrbulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    date = new Date()
+    tanggal = date.getDate()
+    bulan = date.getMonth()
+    tahun = date.getFullYear()
+    dateNow = (tanggal + "-" + arrbulan[bulan] + "-" + tahun)
+    
+    function MenuLogin() {
+        do {
+            adminUser = prompt(`Login : \n\n 1. User \n 2. Admin`)
+
+            if (adminUser == 1) {
+                MenuUtamaUser()
+                isRepeat = false
+
+            } else if (adminUser == 2) {
+                MenuUtamaAdmin()
+                isRepeat = true
+            }
+        } while (isRepeat)
+    }
+
+    function MenuAwalBuah() {
+        menuBuah = ''
+        for (i = 0; i < tokoBuah.length; i++) {
+            menuBuah += (i + 1 + '. Buah ' + tokoBuah[i].Nama + '\n' +
+                '    Harga = Rp.' + tokoBuah[i].Harga + '\n' +
+                '    Sisa stock  = ' + tokoBuah[i].Stock + '\n' +
+                '    Expired = ' + tokoBuah[i].Expired + '\n\n')
+        }
+        menuBuah += (tokoBuah.length + 1) + '.Bayar\n'
+        menuBuah += (tokoBuah.length + 2) + '.Troli'
+        return menuBuah
+    }
+
+    function MenuAwalBaju() {
+        menuBaju = ''
+        for (i = 0; i < tokoBaju.length; i++) {
+            menuBaju += (i + 1 + '. Jenis Baju = ' + tokoBaju[i].Nama + '\n' +
+                '    Harga = Rp.' + tokoBaju[i].Harga + '\n' +
+                '    Ukuran =   ' + tokoBaju[i].Size + '\n' +
+                '    Sisa stock  = ' + tokoBaju[i].Stock + '\n\n')
+        }
+        menuBaju += (tokoBaju.length + 1) + '.Bayar\n'
+        menuBaju += (tokoBaju.length + 2) + '.Troli'
+        return menuBaju
+    }
+
+    function MenuAwalHp() {
+        menuHp = ''
+        for (i = 0; i < tokoHp.length; i++) {
+            menuHp += (i + 1 + '. HP = ' + tokoHp[i].Nama + '\n' +
+                '    Harga = Rp.' + tokoHp[i].Harga + '\n' +
+                '    Garansi =   ' + tokoHp[i].Garansi + ' Tahun ' + '\n' +
+                '    Sisa stock  = ' + tokoHp[i].Stock + '\n\n')
+        }
+        menuHp += (tokoHp.length + 1) + '.Bayar\n'
+        menuHp += (tokoHp.length + 2) + '.Troli'
+        return menuHp
+    }
+
+    function MenuTulisanBuah() {
+        menuBuah = ''
+        for (i = 0; i < tokoBuah.length; i++) {
+            menuBuah += (i + 1 + '. Buah ' + tokoBuah[i].Nama + '\n' +
+                '    Harga = Rp.' + tokoBuah[i].Harga + '\n' +
+                '    Sisa stock  = ' + tokoBuah[i].Stock + '\n' +
+                '    Expired = ' + tokoBuah[i].Expired + '\n\n')
+        }
+        return menuBuah
+    }
+
+    function MenuTulisanBaju() {
+        menuBaju = ''
+        for (let i = 0; i < tokoBaju.length; i++) {
+            menuBaju += (i + 1 + '. Jenis Baju = ' + tokoBaju[i].Nama + '\n' +
+                '    Harga = Rp.' + tokoBaju[i].Harga + '\n' +
+                '    Ukuran =   ' + tokoBaju[i].Size + '\n' +
+                '    Sisa stock  = ' + tokoBaju[i].Stock + '\n\n')
+
+        }
+        return menuBaju
+
+    }
+
+    function MenuTulisanHp() {
+        menuHp = ''
+        for (i = 0; i < tokoHp.length; i++) {
+            menuHp += (i + 1 + '. HP = ' + tokoHp[i].Nama + '\n' +
+                '    Harga = Rp.' + tokoHp[i].Harga + '\n' +
+                '    Garansi =   ' + tokoHp[i].Garansi + ' Tahun ' + '\n' +
+                '    Sisa stock  = ' + tokoHp[i].Stock + '\n\n')
+        }
+        return menuHp
+
+    }
+
+
+
+    function MenuUtamaUser() {
+        let choose = prompt('Jual berbagai :\n1.Buah \n2.Pakaian \n3.Elektronik')
+        if (choose == 1) {
+            MenuBuah()
+            isRepeat = true
+        } else if (choose == 2) {
+            MenuBaju()
+            isRepeat = true
+        } else if (choose == 3) {
+            MenuHp()
+            isRepeat = true
+        }
+    }
+
+
+
+    function MenuUtamaAdmin() {
+        let choose = prompt(' 1. Tambah Item \n 2. Hapus Item \n 3. Show Menu \n 4. Logout')
+        if (choose == 1) {
+            addItem()
+        } else if (choose == 2) {
+            let choose_delete = prompt('1. Hapus dalam Item Buah \n2. Hapus dalam Item Baju \n3. Hapus dalam Item HP \n4. Show Menu Admin')
+            if (choose_delete == 1) {
+                let deleteItemIndex = prompt(MenuTulisanBuah(false));
+                deleteItem(deleteItemIndex)
+                isRepeat = true
+            } else if (choose_delete == 2) {
+                let deleteItemIndex = prompt(MenuTulisanBaju(false))
+                deleteItem(deleteItemIndex)
+                isRepeat = true
+            } else if (choose_delete == 3) {
+                let deleteItemIndex = prompt(MenuTulisanHp(false))
+                deleteItem(deleteItemIndex)
+                isRepeat = true
+            } else if (choose_delete == 4) {
+                MenuUtamaAdmin()
+            }
+
+        } else if (choose == 3) {
+            MenuLogin()
+        } else if (choose == 4) {
+            return
+        }
+    }
+
+
+
+    function deleteItem(deleteItemIndex) {
+
+        for (let i = 0; i < tokoBuah.length; i++) {
+            if (tokoBuah[i].Nama.toLowerCase() == deleteItemIndex.toLowerCase()) {
+                tokoBuah.splice(i, 1)
+                alert('Item telah di hapus')
+                return
+            }
+        }
+        alert('Data tidak ada')
+
+        for (let i = 0; i < tokoBaju.length; i++) {
+            if (tokoBaju[i].Nama.toLowerCase() == deleteItemIndex.toLowerCase()) {
+                tokoBaju.splice(i, 1)
+                alert('Item telah di hapus')
+                return
+            }
+
+        }
+        alert('Data tidak ada')
+
+        for (let i = 0; i < tokoHp.length; i++) {
+            if (tokoHp[i].Nama.toLowerCase() == deleteItemIndex.toLowerCase()) {
+                tokoHp.splice(i, 1)
+                alert('Item telah di hapus')
+                return
+            }
+        }
+        alert('Data tidak ada')
+    }
+
+    function addItem() {
+        let choose_add = prompt('1. Add dalam Item Buah \n2. Add dalam Item Baju \n3. Add dalam Item HP \n4. Show Menu Admin')
+        if (choose_add == 1) {
+            tokoBuah.push({
+                Nama: prompt('Masukan Nama Buah'),
+                Stock: parseInt(prompt('Masukan Jumlah Stock')),
+                Harga: parseInt(prompt('Masukan Harga Buah')),
+                Inputs: 0,
+                Expired: parseInt('Masukan Tanggal expired')
+            })
+        } else if (choose_add == 2) {
+            tokoBaju.push({
+                Nama: prompt('Masukan nama Baju'),
+                Stock: parseInt(prompt('Masukan Jumlah stock')),
+                Harga: parseInt(prompt('Masukan Harga Baju')),
+                inputs: 0,
+                Size: prompt('Masukan ukuran baju')
+            })
+        } else if (choose_add == 3) {
+            tokoHp.push({
+                Nama: prompt('Masukan nama HP'),
+                Stock: parseInt(prompt('Masukan Jumlah stock')),
+                Harga: parseInt(prompt('Masukan Harga HP')),
+                inputs: 0,
+                Garansi: prompt('Masukan durasi Garansi')
+            })
+        } else if (choose_add == 4) {
+            MenuUtamaAdmin()
+        }
+    }
+
+
+
+    function Pembayaran() {
+        do {
+            bayar = parseInt(prompt('Berapa duit yang anda bayar ?'))
+            if (bayar == totalHarga && bayar != NaN) {
+                alert('\nTerima kasih sudah membeli buah di toko ini')
+                isRepeat = confirm('Beli Lagi ga ?')
+                conditionUang = false
+            } else if (bayar > totalHarga) {
+                kembalian = bayar - totalHarga
+                alert('Kembalian anda : Rp.' + kembalian + '\nTerima kasih sudah membeli buah di toko ini')
+                isRepeat = confirm('Beli Lagi ga ?')
+                conditionUang = false
+            } else if (bayar < totalHarga || bayar != NaN) {
+                kurang = totalHarga - bayar
+                alert('Duit anda kurang : Rp.' + kurang + '\n\n  Silahkan bayar kembali')
+                conditionUang = true
+            }
+        }
+        while (conditionUang)
+    }
+
+
+    function AddtoCartBuah(PilihBuahIndex) {
+
+        MenuBuah = ''
+        PilihJumlahBuah = ('        Buah ' + tokoBuah[PilihBuahIndex].Nama + '\n\n' +
+            '    Harga = Rp.' + tokoBuah[PilihBuahIndex].Harga + '\n' +
+            '    Sisa stock  = ' + tokoBuah[PilihBuahIndex].Stock + '\n' +
+            '    Expired = ' + tokoBuah[PilihBuahIndex].Expired + '\n\n' +
+            'Input jumlah Buah ' + tokoBuah[PilihBuahIndex].Nama + ' Yang akan di beli')
+        if(tokoBuah[PilihBuahIndex].Expired > dateNow){
+            InputJumlahBuah = prompt(PilihJumlahBuah)
+            if (InputJumlahBuah > tokoBuah[PilihBuahIndex].Stock || InputJumlahBuah == '' || InputJumlahBuah < 0) {
+                alert('Inputan anda tidak valid dikarenakan, diantara : \n 1. Jumlah yang diinputkan melebihi batas stock Buah ' + tokoBuah[PilihBuahIndex].Nama + '\n 2. Input Null \n 3. Input dibawah 0')
+                isRepeat = true
+            } else {
+                tokoBuah[PilihBuahIndex].Inputs += parseInt(InputJumlahBuah)
+                isRepeat = false
+                tokoBuah[PilihBuahIndex].Stock -= parseInt(InputJumlahBuah)
+
+            }
+            isRepeat = true
+        } else {
+            alert('Buah ' + tokoBuah[PilihBuahIndex].Nama + ' telah kadaluarsa ')
+        }
+        isRepeat = true
+    }   
+
+    function AddtoCartBaju(PilihBajuIndex) {
+
+        MenuBaju = ''
+        PilihJumlahBaju = ('         ' + tokoBaju[PilihBajuIndex].Nama + '\n\n' +
+            '    Harga = Rp.' + tokoBaju[PilihBajuIndex].Harga + '\n' +
+            '    Sisa stock  = ' + tokoBaju[PilihBajuIndex].Stock + '\n' +
+            '    Ukuran = ' + tokoBaju[PilihBajuIndex].Size + '\n\n' +
+            'Input jumlah Baju ' + tokoBaju[PilihBajuIndex].Nama + ' Yang akan di beli')
+        InputJumlahBaju = prompt(PilihJumlahBaju)
+        if (InputJumlahBaju > tokoBaju[PilihBajuIndex].Stock || InputJumlahBaju == '' || InputJumlahBaju < 0) {
+            alert('Inputan anda tidak valid dikarenakan, diantara : \n 1. Jumlah yang diinputkan melebihi batas stock Buah ' + tokoBaju[PilihBajuIndex].Nama + '\n 2. Input Null \n 3. Input dibawah 0')
+            isRepeat = true
+        } else {
+            tokoBaju[PilihBajuIndex].Inputs += parseInt(InputJumlahBaju)
+            isRepeat = false
+            tokoBaju[PilihBajuIndex].Stock -= parseInt(InputJumlahBaju)
+
+        }
+        isRepeat = true
+    }
+
+    function AddtoCartHp(PilihHpIndex) {
+
+        MenuHp = ''
+        PilihJumlahHp = ('         ' + tokoHp[PilihHpIndex].Nama + '\n\n' +
+            '    Harga = Rp.' + tokoHp[PilihHpIndex].Harga + '\n' +
+            '    Sisa stock  = ' + tokoHp[PilihHpIndex].Stock + '\n' +
+            '    Garansi  = ' + tokoHp[PilihHpIndex].Garansi + ' Tahun ' + '\n\n' +
+            'Input jumlah HP ' + tokoHp[PilihHpIndex].Nama + ' Yang akan di beli')
+        if (PilihHp && tokoHp[PilihHpIndex].Garansi > 0) {
+            InputJumlahHp = prompt(PilihJumlahHp)
+            if (InputJumlahHp > tokoHp[PilihHpIndex].Stock || InputJumlahHp == '' || InputJumlahHp < 0) {
+                alert('Inputan anda tidak valid dikarenakan, diantara : \n 1. Jumlah yang diinputkan melebihi batas stock Buah ' + tokoHp[PilihHpIndex].Nama + '\n 2. Input Null \n 3. Input dibawah 0')
+                isRepeat = true
+            } else {
+                tokoHp[PilihHpIndex].Inputs += parseInt(InputJumlahHp)
+                isRepeat = false
+                tokoHp[PilihHpIndex].Stock -= parseInt(InputJumlahHp)
+
+            }
+            isRepeat = true
+        } else {
+            let conf = confirm('Hp ' + tokoHp[PilihHpIndex].Nama + ' hanya bergaransi ' + tokoHp[PilihHpIndex].Garansi + ' Tahun \n Apakah anda tetap ingin membelinya ?')
+            if (conf) {
+                InputJumlahHp = prompt(PilihJumlahHp)
+                if (InputJumlahHp > tokoHp[PilihHpIndex].Stock || InputJumlahHp == '' || InputJumlahHp < 0) {
+                    alert('Inputan anda tidak valid dikarenakan, diantara : \n 1. Jumlah yang diinputkan melebihi batas stock Buah ' + tokoHp[PilihHpIndex].Nama + '\n 2. Input Null \n 3. Input dibawah 0')
+                    isRepeat = true
+                } else {
+                    tokoHp[PilihHpIndex].Inputs += parseInt(InputJumlahHp)
+                    isRepeat = false
+                    tokoHp[PilihHpIndex].Stock -= parseInt(InputJumlahHp)
+                }
+                isRepeat = true
+
+            }
+            isRepeat = true
+        }
+    }
+
+    function HargaTotalBuah() {
+        totalHarga = 0
+
+        for (i = 0; i < tokoBuah.length; i++) {
+            totalHarga += tokoBuah[i].Harga * tokoBuah[i].Inputs
+        }
+
+        for (i = 0; i < tokoBuah.length; i++) {
+            tokoBuah[i].Inputs = 0
+        }
+        alert('Harga total : Rp. ' + totalHarga)
+        descBuah = ''
+    }
+
+    function HargaTotalBaju() {
+        totalHarga = 0
+
+        for (i = 0; i < tokoBaju.length; i++) {
+            totalHarga += tokoBaju[i].Harga * tokoBaju[i].Inputs
+        }
+
+        for (i = 0; i < tokoBaju.length; i++) {
+            tokoBaju[i].Inputs = 0
+        }
+        alert('Harga total : Rp. ' + totalHarga)
+        descBaju = ''
+    }
+
+    function HargaTotalHp() {
+        totalHarga = 0
+
+        for (i = 0; i < tokoHp.length; i++) {
+            totalHarga += tokoHp[i].Harga * tokoHp[i].Inputs
+        }
+
+        for (i = 0; i < tokoHp.length; i++) {
+            tokoHp[i].Inputs = 0
+        }
+        alert('Harga total : Rp. ' + totalHarga)
+        descHp = ''
+    }
+
+    function ShowCartBuah() {
+        userCart = ''
+        cartCount = 0
+        totalHarga = 0
+        for (i = 0; i < tokoBuah.length; i++) {
+            totalHarga += tokoBuah[i].Harga * tokoBuah[i].Inputs
+        }
+        descBuah = ''
+        for (i = 0; i < tokoBuah.length; i++) {
+            if (tokoBuah[i].Inputs > 0) {
+                descBuah += ('- ' + tokoBuah[i].Nama +
+                    ' Sebanyak : ' + tokoBuah[i].Inputs +
+                    ' Expired tanggal : ' + tokoBuah[i].Expired +
+                    ' dengan harga : ' + tokoBuah[i].Harga * tokoBuah[i].Inputs + '\n')
+                cartCount = 1
+
+            }
+
+            if (cartCount == 0 && i == tokoBuah.length - 1) {
+                alert('Cart anda kosong')
+            }
+        }
+        alert(descBuah + '\nTotal yang dibeli : ' + totalHarga)
+        descBuah = ''
+        menuBuah = ''
+        isRepeat = true
+    }
+
+    function ShowCartBaju() {
+        userCart = ''
+        cartCount = 0
+        totalHarga = 0
+        for (i = 0; i < tokoBaju.length; i++) {
+            totalHarga += tokoBaju[i].Harga * tokoBaju[i].Inputs
+        }
+        descBaju = ''
+        for (i = 0; i < tokoBaju.length; i++) {
+            if (tokoBaju[i].Inputs > 0) {
+                descBaju += ('- ' + tokoBaju[i].Nama +
+                    ' Sebanyak : ' + tokoBaju[i].Inputs +
+                    ' Ukuran : ' + tokoBaju[i].Size +
+                    ' dengan harga : ' + tokoBaju[i].Harga * tokoBaju[i].Inputs + '\n')
+                cartCount = 1
+
+            }
+
+            if (cartCount == 0 && i == tokoBaju.length - 1) {
+                alert('Cart anda kosong')
+            }
+        }
+        alert(descBaju + '\nTotal yang dibeli : ' + totalHarga)
+        descBaju = ''
+        menuBaju = ''
+        isRepeat = true
+    }
+
+    function ShowCartHp() {
+        userCart = ''
+        cartCount = 0
+        totalHarga = 0
+        for (i = 0; i < tokoHp.length; i++) {
+            totalHarga += tokoHp[i].Harga * tokoHp[i].Inputs
+        }
+        descHp = ''
+        for (i = 0; i < tokoHp.length; i++) {
+            if (tokoHp[i].Inputs > 0) {
+                descHp += ('- ' + tokoHp[i].Nama +
+                    ' Sebanyak : ' + tokoHp[i].Inputs +
+                    ' Garansi : ' + tokoHp[i].Garansi + ' Tahun ' +
+                    ' dengan harga : ' + tokoHp[i].Harga * tokoHp[i].Inputs + '\n')
+                cartCount = 1
+
+            }
+
+            if (cartCount == 0 && i == tokoHp.length - 1) {
+                alert('Cart anda kosong')
+            }
+        }
+        alert(descHp + '\nTotal yang dibeli : ' + totalHarga)
+        descHp = ''
+        menuHp = ''
+        isRepeat = true
+    }
+
+    MenuLogin()
+
+    function MenuBuah() {
+        do {
+            MenuAwalBuah()
+            PilihBuah = prompt('TOKO BUAH\n ------------------------------ \n' + menuBuah + '\n')
+            PilihBuahIndex = PilihBuah - 1
+            if (PilihBuah == tokoBuah.length + 1) {
+                HargaTotalBuah()
+                Pembayaran()
+            } else if (PilihBuah == tokoBuah.length + 2) {
+                ShowCartBuah()
+            } else {
+                AddtoCartBuah(PilihBuahIndex)
+            }
+        }
+        while (isRepeat)
+    }
+
+    function MenuBaju() {
+        do {
+            MenuAwalBaju()
+            PilihBaju = prompt('TOKO BAJU\n ------------------------------ \n' + menuBaju + '\n')
+            PilihBajuIndex = PilihBaju - 1
+            if (PilihBaju == tokoBaju.length + 1) {
+                HargaTotalBaju()
+                Pembayaran()
+            } else if (PilihBaju == tokoBaju.length + 2) {
+                ShowCartBaju()
+            } else {
+                AddtoCartBaju(PilihBajuIndex)
+            }
+        }
+        while (isRepeat)
+    }
+
+    function MenuHp() {
+        do {
+            MenuAwalHp()
+            PilihHp = prompt('TOKO HP\n ------------------------------ \n' + menuHp + '\n')
+            PilihHpIndex = PilihHp - 1
+            if (PilihHp == tokoHp.length + 1) {
+                HargaTotalHp()
+                Pembayaran()
+            } else if (PilihHp == tokoHp.length + 2) {
+                ShowCartHp()
+            } else {
+                AddtoCartHp(PilihHpIndex)
+            }
+        }
+        while (isRepeat)
+    }
+
+// </script>
+
+//
+
+</html>

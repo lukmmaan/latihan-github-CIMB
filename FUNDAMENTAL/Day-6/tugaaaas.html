@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        let inputUserMenu
+        let indexuser
+        let MasukkaninputStok
+        let menu = ''
+        let chart = ''
+        let Hargatotal
+        let kondisiulang
+        let kondisibanget
+        let pilih
+
+        let ArrayItemku = 
+        [
+            { Buah: 'Apel', Harga: 2000, Stock: 20, Input: 0},
+            { Buah: 'Mangga', Harga: 9000, Stock: 20, Input: 0},
+            { Buah: 'Duren', Harga: 100000, Stock: 20, Input: 0}
+        ]
+        AdminPilih()
+        function userMenu() {
+
+            do {
+
+                Menu_List()
+
+                indexuser = inputUserMenu - 1
+
+                if (inputUserMenu == ArrayItemku.length + 2) {
+
+                    TampilanChart()
+
+                    Total_Harga() // -> 20000
+
+                    MasukkanHarga()
+
+                } else if (inputUserMenu == ArrayItemku.length + 1) {
+
+                    TampilanChart()
+
+                } else {
+
+                    nambahchart(indexuser)
+                }
+
+            } while (kondisiulang)
+
+        }
+
+        function Menu_List() {
+
+            menu = ''
+            for (i = 0; i < ArrayItemku.length; i++) {
+                menu += (i + 1) + ` ${ArrayItemku[i].Buah} Harga Rp.${ArrayItemku[i].Harga} , Stok (${ArrayItemku[i].Stock} Pcs)\n`
+            }
+
+            menu += `${ArrayItemku.length + 1} chart \n${ArrayItemku.length + 2} Checkout `
+
+            inputUserMenu = prompt(menu)
+        }
+
+        function AdminPilih() {
+            do {
+                pilihankonsumen = prompt(`Pilih akun admin atau user \n\n 1. User \n 2. Admin`)
+
+                if (pilihankonsumen == 1) {
+                    userMenu()
+                    kondisibanget = false
+
+                } else if (pilihankonsumen == 2) {
+                    add()
+                    kondisibanget = true
+                }
+            } while (kondisibanget)
+        }
+        function Total_Harga() {
+
+            Hargatotal = 0
+
+            for (i = 0; i < ArrayItemku.length; i++) {
+                Hargatotal += ArrayItemku[i].Harga * ArrayItemku[i].Input
+            }
+            // alert('masuk')
+            // return Hargatotal
+
+        }
+
+        function nambahchart(indexuser) {
+            do {
+                MasukkaninputStok = parseInt(prompt(`Berapa Banyak  ${ArrayItemku[indexuser].Buah} ?`))
+
+                if (ArrayItemku[indexuser].Stock >= MasukkaninputStok + ArrayItemku[indexuser].Input) {
+                    ArrayItemku[indexuser].Input += MasukkaninputStok
+                    kondisiulang = false
+
+                } else {
+                    alert(`stock ${ArrayItemku[indexuser].Buah} Tidak Cukup`)
+                    kondisiulang = true
+                }
+            } while (kondisiulang)
+
+            kondisiulang = true
+        }
+        function TampilanChart() {
+
+            chart = ''
+            for (i = 0; i < ArrayItemku.length; i++) {
+                chart += `${ArrayItemku[i].Buah} (${ArrayItemku[i].Input} Pcs) \n`
+            }
+            alert(chart)
+
+            kondisiulang = true
+
+        }
+        function add() {
+            pilih = prompt('1. Tambah Item \n 2. Back')
+            if (pilih == 1) {
+                {
+                    ArrayItemku.push(
+                        {
+                            Buah: prompt('Masukkan Nama buah'),
+                            Harga: prompt('Masukkan Harga Buah'),
+                            Stock: prompt('Masukkan Jumlah Stok'),
+                            Input: 0
+                        }
+                    )
+
+                }
+            }
+            else {
+                alert('Terimakasih')
+            }
+        }
+        
+            function MasukkanHarga() {
+                alert('masuk')
+                do {
+
+                    PembayaranUser = prompt(`Harga Total ${Hargatotal}`)
+
+                    if (PembayaranUser > Hargatotal) {
+                        alert(`Kembalian ${PembayaranUser - Hargatotal}`)
+                        kondisiulang = false
+
+                    } else if (PembayaranUser < Hargatotal) {
+                        alert(`Ga cukup uangnya  ${Hargatotal - PembayaranUser}`)
+                        kondisiulang = true
+
+                    } else if (PembayaranUser == Hargatotal) {
+                        alert('Nuhun')
+                        kondisiulang = false
+                    }
+
+                } while (kondisiulang)
+
+                for (let i = 0; i < ArrayItemku.length; i++) {
+                    ArrayItemku[i].Stock -= ArrayItemku[i].Input
+                    ArrayItemku[i].Input = 0
+                }
+                kondisiulang = confirm('Belanja lagi ga?')
+            }
+        
+    </script>
+
+</body>
+
+</html>

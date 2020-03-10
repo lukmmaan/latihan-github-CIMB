@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+
+//harga buah
+var apel = 4000
+var mangga = 5000
+var jeruk = 2500
+var naga = 10000
+alert('Lukman Buah \n\n Apel       = stok 4 buah Rp.4000/buah \n Mangga = stok 4 buah Rp.5000/buah \n Jeruk     = stok 4 buah Rp.2500/buah \n B.Naga  = stok 4 buah Rp.10000/buah')
+//banyak buah
+let aa = parseInt(prompt('buah apel berapa banyak?')) //apel
+if (aa >=5) {
+    alert('buah apel habis')
+    alert('Terimakasih Telah Bertransaksi di Toko Kami, Silahkan Kembali di Lain Waktu')
+}
+else
+{
+    let bb = parseInt(prompt('buah mangga berapa banyak?')) //mangga
+    if (bb >=5) {
+        alert('buah mangga habis')
+        alert('Terimakasih Telah Bertransaksi di Toko Kami, Silahkan Kembali di Lain Waktu')
+    }
+    else{
+        let cc = parseInt(prompt('buah jeruk berapa banyak?')) //jeruk
+        if (cc >=5) {
+            alert('buah jeruk habis')
+            alert('Terimakasih Telah Bertransaksi di Toko Kami, Silahkan Kembali di Lain Waktu')
+        }
+        else{
+            let dd = parseInt(prompt('buah naga berapa banyak?')) //buah naga
+            if (dd >=5) 
+            {
+                alert('buah naga habis')
+                alert('Terimakasih Telah Bertransaksi di Toko Kami, Silahkan Kembali di Lain Waktu')
+            }
+            else
+            {
+                const total = (apel*aa) + (mangga*bb) + (jeruk*cc) + (naga*dd) //total harga
+                alert("total harga Rp." + total)
+                let ee = parseInt(prompt('uang anda berapa?')) //duit customer
+                if (ee == total) 
+                {
+                    alert('uang pas tanpa kembalian') //tanpa kembalian
+                }
+                else if (ee > total) 
+                {
+                    let kembalian = ee-total
+                    alert('kembalian anda Rp.' + kembalian) //kembalian
+                }
+                else 
+                {
+                    let kurang = total - ee //kurang duit
+                    alert('kurang uang anda Rp.' + kurang)
+                }
+            }
+        }   
+    }
+}
+
+
+
+
+</script>
+
+</html>

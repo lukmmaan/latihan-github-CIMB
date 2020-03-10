@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+    let ArrNamaBuah = ['Apel', 'Mangga', 'Jeruk']
+    let ArrHargaBuah = [4000, 5000, 2500]
+    let ArrStokBuah = [5, 5, 5]
+    let ArrInput = [0,0,0]
+    let tulisan = ''
+    var klik
+    var jumlahbuah
+
+    let kondisimenu
+    let kondisiuang
+    let totalharga
+    //input banyak buah
+    let aa_apel
+    let aa_mangga
+    let aa_jeruk
+    
+    do {
+    tulisan = ''
+    for (let i = 0; i < ArrHargaBuah[i]; i++) {
+
+        tulisan = tulisan + (i + 1) + '. Buah ' + ArrNamaBuah[i] + ' Harga Buah ' + ArrHargaBuah[i] + ' Stok Buah ' + ArrStokBuah[i] + '\n \n'
+
+    }
+    tulisan += `${ArrNamaBuah.length+1}.checkout`
+        klik = prompt('    Masukkan angka untuk memilih buah: \n \n' + tulisan)
+        klik = klik -1
+        // for (let j = 0; j < ArrHargaBuah[j]; j++) {
+            jumlahbuah = ('Buah ' + ArrNamaBuah[klik] + ', Harga Buah ' + ArrHargaBuah[klik] + ', Stok Buah ' + ArrStokBuah[klik] + '\n \n' + 'Mau beli berapa banyak buah ? \n \n')
+            if (klik  == 0) 
+            {
+
+                inputan = parseInt(prompt(jumlahbuah))
+                if (ArrInput > ArrStokBuah[klik]) {
+                    alert('Stok ' + ArrNamaBuah[klik] + ' habis')
+                    kondisimenu = false
+                }
+
+                else {
+                    ArrInput[klik] += inputan
+                    // alert(ArrInput[0])
+                    ArrStokBuah[klik] -=ArrInput[klik]
+
+                    // alert(ArrStokBuah[0])
+                    kondisimenu = true
+                }
+            }
+            if (klik  == 1) 
+            {
+
+                inputan2 = prompt(jumlahbuah)
+                if (ArrInput > ArrStokBuah[klik]) {
+                    alert('Stok ' + ArrNamaBuah[klik] + ' habis')
+                    kondisimenu = false
+                }
+
+                else {
+                    ArrInput[klik] += inputan2
+                    ArrStokBuah[klik] -=ArrInput[klik]
+                    kondisimenu = true
+                }
+            }
+            if (klik  == 2) 
+            {
+
+                inputan3 = prompt(jumlahbuah)
+                if (ArrInput > ArrStokBuah[klik]) {
+                    alert('Stok ' + ArrNamaBuah[klik] + ' habis')
+                    kondisimenu = false
+                }
+
+                else {
+                    ArrInput[2] += inputan3
+                    ArrStokBuah[2] -=ArrInput[2]
+                    kondisimenu = true
+                }
+            }
+            if (klik == ArrNamaBuah.length) 
+            {
+                totalharga = 0
+                for (let i = 0; i < ArrNamaBuah.length; i++)
+                {
+                    totalharga = totalharga + (ArrHargaBuah[i] *ArrInput[i]) 
+                }
+                alert('total harga ' + totalharga)
+                do
+                {
+                uanganda = prompt('Uang Anda Berapa? ')
+                if (uanganda == totalharga) 
+                {
+                    alert('uang pas tanpa kembalian')   
+                    kondisiuang = false 
+                    ArrInput.fill(0)
+                }
+                else if (uanganda > totalharga) 
+                {
+                    let kembalian = uanganda - totalharga
+                    alert('Kembalian Anda' + kembalian)
+                    kondisiuang = false
+                    ArrInput.fill(0)
+                }
+                else
+                {
+                    let kurang = totalharga - uanganda
+                    alert('kurang uang anda ' + kurang)
+                    kondisiuang = true
+                }}while (kondisiuang)
+            }
+
+        }
+    
+    while (kondisimenu)
+
+</script>
+
+</html>

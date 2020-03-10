@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+    //1. array isinya jakarta bsd bandung
+    //2. buat sebuah function input sendiri menggunakan prompt display{item, ketik dari item tersebut alert item2 lagi dengan salah satunya sudah dihapus dengan syarat kita sudah di klik}
+
+    let arr = ['Jakarta', 'BSD', 'Bandung']
+    let kondisi
+    function menutulisan() {
+        let tulisan_ = ''
+        for (let i = 0; i < arr.length; i++) {
+
+            tulisan_ =  tulisan_  + (i+1) +'. '+ arr[i] + ' \n'
+        }
+        return tulisan_
+    }
+    do {
+        let deletearr = prompt(menutulisan(false))
+        deleteitem(deletearr)
+        function deleteitem(deletearr) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].toLowerCase()==deletearr.toLowerCase()) {
+                        arr.splice(i,1)
+                }
+                
+            }
+        }
+        // function deleteitem(deletearr) {
+        //     for (let i = 0; i < arr.length; i++) {
+        //         if (arr[i].toLowerCase() ==deletearr.toLowerCase()) {
+        //             return i
+        //         }
+        //     }
+        //     return -1
+        // }
+        alert(deleteitem(deletearr))
+        kondisi = true
+    } while (kondisi)
+
+</script>
+
+</html>

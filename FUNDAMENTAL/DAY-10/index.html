@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table,
+        tr,
+        td,
+        th,
+        tbody,
+        tfoot,
+        thead {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <table>
+            <thead>
+                <tr>
+                    <th onclick="sortData()"><strong>Nama</strong></th>
+                    <th onclick="sortData_pekerjaan()"><strong>Pekerjaan</strong></th>
+                    <th onclick="sortData_umur()"><strong>Umur</strong></th>
+                    <th><strong>Picture</strong></th>
+                </tr>
+            </thead>
+            <tbody id="mainData">
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><input type="text" placeholder="Input Nama" required id="inputNama"></td>
+                    <td><input type="text" placeholder="Input Pekerjaan" required id="inputPekerjaan"></td>
+                    <td><input type="number" placeholder="Input Umur" id="inputUmur"></td>
+                    <td><input type="text" placeholder="Link" id="inputPic"></td>
+                    <td><input type="button" value="Submit" id="submitButton" onclick="addData()"></td>
+                </tr>
+            </tfoot>
+        </table>
+        <h1 id="habis" align='center'></h1>
+        <h1 id="tugas_kosong"></h1>
+        <h1 id="data_ditambah"></h1>
+    </center>
+</body>
+<script>
+    class Orang {
+        constructor(nama, pekerjaan, umur, pic) {
+            this.nama = nama
+            this.pekerjaan = pekerjaan
+            this.umur = umur
+            this.pic = pic
+        }
+    }
+    let dataOrang = [
+        new Orang('Andi', 'Kuliah', 23, 'https://cdnx2.kincir.com/production/2019-08/original_1366/6f847a97c1e8982de2b7c0dd18d3c3c6091baaa8.png'),
+        new Orang('Dandi', 'Magang', 40, 'https://i.insider.com/59c387d3ba785e34910e27b4?width=1100&format=jpeg&auto=webp'),
+        new Orang('Candi', 'PNS', 100, 'https://ih0.redbubble.net/image.131322905.5528/st,small,507x507-pad,600x600,f8f8f8.u5.jpg'),
+        new Orang('Bandi', 'Ilmuan', 20, 'https://media.hitekno.com/thumbs/2018/07/12/93071-hiu-tersenyum/350x230-img-93071-hiu-tersenyum.jpg')
+    ]
+
+
+    const renderData = () => {
+        let hasil = ''
+        // for (let i = 0; i < dataOrang.length; i++) {
+        //     hasil+=
+        //     `
+        //     <tr>
+        //         <td>${dataOrang[i].nama}</td>
+        //         <td>${dataOrang[i].pekerjaan}</td>
+        //         <td>${dataOrang[i].umur}</td>
+        //         <td> <img src="${dataOrang[i].pic}" alt="" width =200 height=100></td>
+        //         <td><input type="button" value="Delete" onclick="deleteData(${i})"> </td>
+        //     </tr>
+        //     `
+        // }
+
+        dataOrang.forEach(({ nama, pekerjaan, umur, pic }, index) => {
+            hasil +=
+                `
+            <tr>
+                <td>${nama}</td>
+                <td>${pekerjaan}</td>
+                <td>${umur}</td>
+                <td> <img src="${pic}" alt="" width =200 height=100></td>
+                <td><input type="button" value="Delete" onclick="deleteData(${index})"> </td>
+            </tr>
+            `
+        }
+        )
+        document.getElementById('mainData').innerHTML = hasil
+    }
+
+    const addData = () => {
+        let inputNama = document.getElementById("inputNama").value
+        let inputPekerjaan = document.getElementById("inputPekerjaan").value
+        let inputUmur = document.getElementById('inputUmur').value
+        let inputPic = document.getElementById('inputPic').value
+
+        let newData = new Orang(inputNama, inputPekerjaan, inputUmur, inputPic)
+        if (inputNama && inputPekerjaan && inputUmur && inputPic) {
+            dataOrang.push(newData)
+            document.getElementById('data_ditambah').innerHTML = `Data Telah Ditambah`
+            inputNama = document.getElementById("inputNama").value = ''
+            inputPekerjaan = document.getElementById("inputPekerjaan").value = ''
+            inputUmur = document.getElementById('inputUmur').value = ''
+            inputPic = document.getElementById('inputPic').value = ''
+            document.getElementById('tugas_kosong').innerHTML = ''
+            document.getElementById('habis').innerHTML = ``
+        }
+        else {
+            inputNama = document.getElementById("inputNama").value = ''
+            inputPekerjaan = document.getElementById("inputPekerjaan").value = ''
+            inputUmur = document.getElementById('inputUmur').value = ''
+            inputPic = document.getElementById('inputPic').value = ''
+            document.getElementById('tugas_kosong').innerHTML = 'Data Masih ada yang kosong'
+            document.getElementById('data_ditambah').innerHTML = ``
+            document.getElementById('habis').innerHTML = ``
+            // alert('Data Masih ada yang kosong')
+
+        }
+        renderData()
+    }
+    const deleteData = (deleteindex) => {
+        alert('Sudah terhapus')
+        document.getElementById('tugas_kosong').innerHTML = ''
+        document.getElementById('data_ditambah').innerHTML = ``
+        dataOrang.splice(deleteindex, 1)
+        renderData()
+        if (dataOrang.length == 0) {
+            alert('data kosong')
+            document.getElementById('data_ditambah').innerHTML = ``
+            document.getElementById('habis').innerHTML = `Data Habis`
+        }
+    }
+    let kosong = 0
+    const sortData = () => {
+        if (kosong == 0) {
+            dataOrang.sort(function sort(a, b) {
+                if ((a.nama.toLowerCase() < b.nama.toLowerCase())) {
+                    return -1
+                }
+                return 1
+            })
+            kosong++
+        } else {
+            dataOrang.sort(function sort(b, a) {
+                if ((a.nama.toLowerCase() < b.nama.toLowerCase())) {
+                    return -1
+                }
+                return 1
+            })
+            kosong--
+        }
+        renderData()
+    }
+    const sortData_pekerjaan = () => {
+        if (kosong == 0) {
+            dataOrang.sort(function sort(a, b) {
+                if ((a.pekerjaan.toLowerCase() < b.pekerjaan.toLowerCase())) {
+                    return -1
+                }
+                return 1
+            })
+            kosong++
+        } else {
+            dataOrang.sort(function sort(b, a) {
+                if ((a.pekerjaan.toLowerCase() < b.pekerjaan.toLowerCase())) {
+                    return -1
+                }
+                return 1
+            })
+            kosong--
+        }
+        renderData()
+    }
+    const sortData_umur = () => {
+        if (kosong == 0) {
+            dataOrang.sort(function sort(a, b) {
+                if ((a.umur < b.umur)) {
+                    return -1
+                }
+                return 1
+            })
+            kosong++
+        } else {
+            dataOrang.sort(function sort(b, a) {
+                if ((a.umur < b.umur)) {
+                    return -1
+                }
+                return 1
+            })
+            kosong--
+        }
+        renderData()
+    }
+    // addData()
+    renderData()
+
+
+</script>
+
+</html>

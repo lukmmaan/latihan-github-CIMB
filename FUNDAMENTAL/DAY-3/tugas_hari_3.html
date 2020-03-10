@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+
+
+//jumlah buah tersedia
+let apel_a = 5
+let mangga_a = 5
+let jeruk_a = 5
+let naga_a = 5
+//konfirmasi ulang program dari awal
+var konfirmasi
+do
+{
+//harga buah
+var apel = 4000
+var mangga = 5000
+var jeruk = 2500
+var naga = 10000
+
+//kondisi 
+let kondisiapel
+let kondisimangga
+let kondisijeruk
+let kondisinaga
+let kondisiuang
+ 
+alert(' Harga Apel Satu buah = RP.' + apel + '. Stok sisa = ' + apel_a +
+      '\n Harga Mangga Satu buah = Rp.' + mangga + '. Stok sisa = ' + mangga_a +
+      '\n Harga Jeruk Satu buah = Rp.' + jeruk + '. Stok sisa = ' +jeruk_a +
+      '\n Harga Buah Naga Satu buah = Rp.' + naga + '. Stok sisa = ' +naga_a)
+//banyak buah
+
+do
+{
+let aa = parseInt(prompt('buah apel berapa banyak?')) //apel
+if (aa >apel_a) {
+    alert('buah apel habis')
+    alert('Terimakasih Telah Bertransaksi di Toko Kami, Silahkan Kembali di Lain Waktu')
+    kondisiapel = true
+}
+else
+{
+    do
+    {
+    let bb = parseInt(prompt('buah mangga berapa banyak?')) //mangga
+    if (bb >mangga_a) {
+        alert('buah mangga habis')
+        alert('Terimakasih Telah Bertransaksi di Toko Kami, Silahkan Kembali di Lain Waktu')
+        kondisimangga = true
+    }
+    else{
+        do
+        {
+        let cc = parseInt(prompt('buah jeruk berapa banyak?')) //jeruk
+        if (cc >jeruk_a) {
+            alert('buah jeruk habis')
+            alert('Terimakasih Telah Bertransaksi di Toko Kami, Silahkan Kembali di Lain Waktu')
+            kondisijeruk = true
+        }
+        else{
+            do
+            {
+            let dd = parseInt(prompt('buah naga berapa banyak?')) //buah naga
+            if (dd >naga_a) 
+            {
+                alert('buah naga habis')
+                alert('Terimakasih Telah Bertransaksi di Toko Kami, Silahkan Kembali di Lain Waktu')
+                kondisinaga = true
+            }
+            else
+            {
+
+                const total = (apel*aa) + (mangga*bb) + (jeruk*cc) + (naga*dd) //total harga
+                alert("total harga Rp." + total)
+                do
+                {
+                let ee = parseInt(prompt('uang anda berapa?')) //duit customer
+                if (ee == total) 
+                {
+                    alert('uang pas tanpa kembalian') //tanpa kembalian
+                    kondisiuang = false
+                }
+                else if (ee > total) 
+                {
+                    let kembalian = ee-total
+                    alert('kembalian anda Rp.' + kembalian) //kembalian
+                    kondisiuang = false
+                }
+                else 
+                {
+                    let kurang = total - ee //kurang duit
+                    alert('kurang uang anda Rp.' + kurang)
+                    kondisiuang = true
+                }}
+                while (kondisiuang)
+
+                apel_a = apel_a - aa
+                mangga_a = mangga_a - bb
+                jeruk_a = jeruk_a - cc
+                naga_a = naga_a - dd
+
+                alert('Sisa stok ' + ' Apel = ' + apel_a + ' mangga = ' + mangga_a + ' jeruk = ' + jeruk_a +' naga = ' + naga_a)
+                var konfirmasi = confirm('pengen belanja lagi ga?')
+                
+                if (apel_a == 0 && mangga_a ==0 && jeruk_a==0 && naga_a==0) 
+                {
+                    konfirmasi = false
+                    alert('Stoknya udah abis semua, pulang sana mas')    
+                }
+                kondisinaga = false
+            }}
+            while (kondisinaga)
+            kondisijeruk = false
+        }}
+        while (kondisijeruk)
+    kondisimangga = false      
+    }}
+    while (kondisimangga)
+kondisiapel = false    
+}}
+while (kondisiapel)
+
+
+}
+while(konfirmasi)
+</script>
+
+</html>
